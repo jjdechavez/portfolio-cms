@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :portfolio, Portfolio.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "admin",
   database: "portfolio_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

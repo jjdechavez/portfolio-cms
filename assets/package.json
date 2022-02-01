@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@picocss/pico": "^1.4.4"
+  }
+}

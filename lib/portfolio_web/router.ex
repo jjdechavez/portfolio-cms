@@ -14,10 +14,20 @@ defmodule PortfolioWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :admin do
+    plug :put_root_layout, {PortfolioWeb.LayoutView, :admin}
+  end
+
   scope "/", PortfolioWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/admin", PortfolioWeb.Admin, as: :admin do
+    pipe_through [:browser, :admin]
+
+    get "/", DashboardController, :index
   end
 
   # Other scopes may use custom stacks.

@@ -1,5 +1,6 @@
 /* This file is for your main application CSS */
-@import "../node_modules/@picocss/pico/scss/pico.scss";
+@import "@picocss/pico/scss/pico";
+@import "./admin.scss";
 /* @import "./phoenix.css"; */
 
 /* Alerts and form errors used by phx.new */

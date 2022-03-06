@@ -6,6 +6,11 @@ defmodule Portfolio.Accounts.User do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
+    field :first_name, :string
+    field :last_name, :string
+    field :middle_name, :string
+    field :portfolio_link, :string
+    field :github_link, :string
     field :confirmed_at, :naive_datetime
 
     timestamps()
@@ -30,9 +35,17 @@ defmodule Portfolio.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :first_name, :last_name])
+    |> validate_meta()
     |> validate_email()
     |> validate_password(opts)
+  end
+
+  defp validate_meta(changeset) do
+    changeset
+    |> validate_required([:first_name, :last_name])
+    |> validate_length(:first_name, min: 1, max: 160)
+    |> validate_length(:last_name, min: 1, max: 160)
   end
 
   defp validate_email(changeset) do

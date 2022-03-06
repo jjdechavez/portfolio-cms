@@ -1,8 +1,8 @@
-defmodule PortfolioWeb.UserSettingsController do
+defmodule PortfolioWeb.Admin.UserSettingsController do
   use PortfolioWeb, :controller
 
   alias Portfolio.Accounts
-  alias PortfolioWeb.UserAuth
+  alias PortfolioWeb.Admin.UserAuth
 
   plug :assign_email_and_password_changesets
 

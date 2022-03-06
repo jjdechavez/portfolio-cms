@@ -1,9 +1,9 @@
-defmodule PortfolioWeb.UserRegistrationController do
+defmodule PortfolioWeb.Admin.UserRegistrationController do
   use PortfolioWeb, :controller
 
   alias Portfolio.Accounts
   alias Portfolio.Accounts.User
-  alias PortfolioWeb.UserAuth
+  alias PortfolioWeb.Admin.UserAuth
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})

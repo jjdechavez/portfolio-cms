@@ -1,4 +1,4 @@
-defmodule PortfolioWeb.UserResetPasswordController do
+defmodule PortfolioWeb.Admin.UserResetPasswordController do
   use PortfolioWeb, :controller
 
   alias Portfolio.Accounts

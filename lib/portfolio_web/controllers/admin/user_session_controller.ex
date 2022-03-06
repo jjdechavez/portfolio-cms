@@ -1,8 +1,8 @@
-defmodule PortfolioWeb.UserSessionController do
+defmodule PortfolioWeb.Admin.UserSessionController do
   use PortfolioWeb, :controller
 
   alias Portfolio.Accounts
-  alias PortfolioWeb.UserAuth
+  alias PortfolioWeb.Admin.UserAuth
 
   def new(conn, _params) do
     render(conn, "new.html", error_message: nil)

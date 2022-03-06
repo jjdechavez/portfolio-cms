@@ -1,7 +1,7 @@
 defmodule PortfolioWeb.Router do
   use PortfolioWeb, :router
 
-  import PortfolioWeb.UserAuth
+  import PortfolioWeb.Admin.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -10,27 +10,15 @@ defmodule PortfolioWeb.Router do
     plug :put_root_layout, {PortfolioWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  pipeline :admin do
+    plug :put_root_layout, {PortfolioWeb.LayoutView, :admin}
     plug :fetch_current_user
   end
 
   pipeline :api do
     plug :accepts, ["json"]
-  end
-
-  pipeline :admin do
-    plug :put_root_layout, {PortfolioWeb.LayoutView, :admin}
-  end
-
-  scope "/", PortfolioWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
-  scope "/admin", PortfolioWeb.Admin, as: :admin do
-    pipe_through [:browser, :admin]
-
-    get "/", DashboardController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -66,10 +54,22 @@ defmodule PortfolioWeb.Router do
     end
   end
 
+  scope "/", PortfolioWeb do
+    pipe_through :browser
+
+    get "/", PageController, :index
+  end
+
+  scope "/admin", PortfolioWeb.Admin, as: :admin do
+    pipe_through [:browser, :admin, :require_authenticated_user]
+
+    get "/", DashboardController, :index
+  end
+
   ## Authentication routes
 
-  scope "/", PortfolioWeb do
-    pipe_through [:browser, :redirect_if_user_is_authenticated]
+  scope "/admin", PortfolioWeb.Admin, as: :admin do
+    pipe_through [:browser, :admin, :redirect_if_user_is_authenticated]
 
     get "/users/register", UserRegistrationController, :new
     post "/users/register", UserRegistrationController, :create
@@ -81,16 +81,16 @@ defmodule PortfolioWeb.Router do
     put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
-  scope "/", PortfolioWeb do
-    pipe_through [:browser, :require_authenticated_user]
+  scope "/admin", PortfolioWeb.Admin, as: :admin do
+    pipe_through [:browser, :admin, :require_authenticated_user]
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
-  scope "/", PortfolioWeb do
-    pipe_through [:browser]
+  scope "/admin", PortfolioWeb.Admin, as: :admin do
+    pipe_through [:browser, :admin]
 
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new

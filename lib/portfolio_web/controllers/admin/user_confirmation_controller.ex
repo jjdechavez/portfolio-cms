@@ -1,4 +1,4 @@
-defmodule PortfolioWeb.UserConfirmationController do
+defmodule PortfolioWeb.Admin.UserConfirmationController do
   use PortfolioWeb, :controller
 
   alias Portfolio.Accounts

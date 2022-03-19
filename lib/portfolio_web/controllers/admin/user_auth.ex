@@ -82,7 +82,7 @@ defmodule PortfolioWeb.Admin.UserAuth do
     conn
     |> renew_session()
     |> delete_resp_cookie(@remember_me_cookie)
-    |> redirect(to: "/admin/users/log_in")
+    |> redirect(to: Routes.admin_user_session_path(conn, :new))
   end
 
   @doc """

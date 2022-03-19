@@ -1,5 +1,24 @@
-
 <section class="phx-hero">
-  <h1><%= gettext "Welcome %{name}!", name: @current_user.first_name %></h1>
+  <h1>
+    <%= gettext "Welcome %{name}!" , name: @current_user.first_name %>
+  </h1>
   <p>Peace of mind from prototype to production</p>
+
+  <div class="grid">
+    <div>
+      <article>
+        Projects
+      </article>
+    </div>
+    <div>
+      <article>
+        Experciences
+      </article>
+    </div>
+    <div>
+      <article>
+        Companies
+      </article>
+    </div>
+  </div>
 </section>

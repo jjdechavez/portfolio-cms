@@ -1,0 +1,37 @@
+<article class="grid">
+  <div>
+    <hgroup>
+      <h1>Register</h1>
+      <h2>A minimalist layout for Login pages</h2>
+    </hgroup>
+    <.form let={f} for={@changeset} action={Routes.admin_user_registration_path(@conn, :create)}>
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          Oops, something went wrong! Please check the errors below.
+        </div>
+      <% end %>
+
+      <%= label f, :first_name, "First Name" %>
+      <%= text_input f, :first_name, [required: true, placeholder: "John"] %>
+      <%= error_tag f, :first_name %>
+
+      <%= label f, :last_name, "Last Name" %>
+      <%= text_input f, :last_name, [required: true, placeholder: "Doe"] %>
+      <%= error_tag f, :last_name %>
+
+      <%= label f, :email %>
+      <%= email_input f, :email, [required: true, placeholder: "doe@example.com", "aria-label": "Email"] %>
+      <%= error_tag f, :email %>
+
+      <%= label f, :password %>
+      <%= password_input f, :password, [required: true, placeholder: "*****", "aria-label": "Password"] %>
+      <%= error_tag f, :password %>
+
+      <%= submit "Register" %>
+    </.form>
+    <p>
+      <%= link "Register", to: Routes.admin_user_registration_path(@conn, :new) %> |
+      <%= link "Forgot your password?", to: Routes.admin_user_reset_password_path(@conn, :new) %>
+    </p>
+  </div>
+</article>

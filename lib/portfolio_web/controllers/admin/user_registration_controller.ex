@@ -16,7 +16,7 @@ defmodule PortfolioWeb.Admin.UserRegistrationController do
         {:ok, _} =
           Accounts.deliver_user_confirmation_instructions(
             user,
-            &Routes.user_confirmation_url(conn, :edit, &1)
+            &Routes.admin_user_confirmation_url(conn, :edit, &1)
           )
 
         conn

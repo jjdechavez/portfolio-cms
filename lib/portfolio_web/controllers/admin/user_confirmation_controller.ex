@@ -21,7 +21,7 @@ defmodule PortfolioWeb.Admin.UserConfirmationController do
       "If your email is in our system and it has not been confirmed yet, " <>
         "you will receive an email with instructions shortly."
     )
-    |> redirect(to: "/")
+    |> redirect(to: "/admin")
   end
 
   def edit(conn, %{"token" => token}) do
@@ -35,7 +35,7 @@ defmodule PortfolioWeb.Admin.UserConfirmationController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "User confirmed successfully.")
-        |> redirect(to: "/")
+        |> redirect(to: "/admin")
 
       :error ->
         # If there is a current user and the account was already confirmed,
@@ -44,12 +44,12 @@ defmodule PortfolioWeb.Admin.UserConfirmationController do
         # a warning message.
         case conn.assigns do
           %{current_user: %{confirmed_at: confirmed_at}} when not is_nil(confirmed_at) ->
-            redirect(conn, to: "/")
+            redirect(conn, to: "/admin")
 
           %{} ->
             conn
             |> put_flash(:error, "User confirmation link is invalid or it has expired.")
-            |> redirect(to: "/")
+            |> redirect(to: "/admin")
         end
     end
   end

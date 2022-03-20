@@ -1,7 +1,7 @@
 <h1>Listing Companies</h1>
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.admin_company_index_path(@socket, :index)}>
+  <.modal return_to={Routes.admin_company_index_path(@socket, :index)} title={@page_title}>
     <.live_component
       module={PortfolioWeb.Admin.CompanyLive.FormComponent}
       id={@company.id || :new}

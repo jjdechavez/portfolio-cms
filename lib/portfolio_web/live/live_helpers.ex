@@ -35,18 +35,23 @@ defmodule PortfolioWeb.LiveHelpers do
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
       >
-        <%= if @return_to do %>
-          <%= live_patch "✖",
-            to: @return_to,
-            id: "close",
-            class: "phx-modal-close",
-            phx_click: hide_modal()
-          %>
-        <% else %>
-         <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
-        <% end %>
+        <article>
+          <header>
+            <%= if @return_to do %>
+              <%= live_patch "✖",
+                to: @return_to,
+                id: "close",
+                class: "phx-modal-close",
+                phx_click: hide_modal()
+              %>
+            <% else %>
+             <a id="close" href="#" class="phx-modal-close close" phx-click={hide_modal()}>✖</a>
+            <% end %>
+            <%= @title %>
+          </header>
 
-        <%= render_slot(@inner_block) %>
+          <%= render_slot(@inner_block) %>
+        </article>
       </div>
     </div>
     """

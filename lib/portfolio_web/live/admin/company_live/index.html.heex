@@ -8,6 +8,7 @@
       title={@page_title}
       action={@live_action}
       company={@company}
+      current_user={@current_user}
       return_to={Routes.admin_company_index_path(@socket, :index)}
     />
   </.modal>
@@ -19,8 +20,7 @@
       <th>Name</th>
       <th>Url link</th>
       <th>Location</th>
-
-      <th></th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody id="companies">

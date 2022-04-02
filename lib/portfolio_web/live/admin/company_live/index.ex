@@ -4,9 +4,16 @@ defmodule PortfolioWeb.Admin.CompanyLive.Index do
   alias Portfolio.Companies
   alias Portfolio.Companies.Company
 
+  import PortfolioWeb.LiveHelpers
+
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :companies, list_companies())}
+  def mount(_params, session, socket) do
+    socket =
+      socket
+      |> assign(:companies, list_companies())
+      |> assign_current_user(session)
+
+    {:ok, socket}
   end
 
   @impl true

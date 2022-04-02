@@ -41,6 +41,9 @@ defmodule PortfolioWeb.Admin.CompanyLive.FormComponent do
   end
 
   defp save_company(socket, :new, company_params) do
+    current_user = socket.assigns.current_user
+    company_params = Map.put(company_params, "user_id", current_user.id)
+
     case Companies.create_company(company_params) do
       {:ok, _company} ->
         {:noreply,

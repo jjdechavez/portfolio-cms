@@ -6,6 +6,7 @@ defmodule Portfolio.Companies.Company do
     field :location, :string
     field :name, :string
     field :url_link, :string
+    field :user_id, :id
 
     timestamps()
   end
@@ -18,5 +19,11 @@ defmodule Portfolio.Companies.Company do
     |> cast(attrs, [:name, :url_link, :location])
     |> validate_required([:name, :url_link, :location])
     |> validate_format(:url_link, @url, message: "must be a valid url link")
+  end
+
+  def create_changeset(company, attrs) do
+    company
+    |> cast(attrs, [:name, :url_link, :location, :user_id])
+    |> validate_required([:name, :url_link, :location, :user_id])
   end
 end

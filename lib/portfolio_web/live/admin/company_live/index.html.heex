@@ -14,12 +14,13 @@
   </.modal>
 <% end %>
 
-<table>
+<table role="grid">
   <thead>
     <tr>
       <th>Name</th>
       <th>Url link</th>
       <th>Location</th>
+      <th>Active</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -29,6 +30,13 @@
         <td><%= company.name %></td>
         <td><%= company.url_link %></td>
         <td><%= company.location %></td>
+        <td>
+          <%= if company.active do %>
+            Active
+          <% else %>
+            Inactive
+          <% end %>
+        </td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.admin_company_show_path(@socket, :show, company) %></span>

@@ -15,6 +15,16 @@
 
 <ul>
 
+
+  <li>
+    <strong>Active:</strong>
+    <%= if @company.active do %>
+      Active
+    <% else %>
+      Inactive
+    <% end %>
+  </li>
+
   <li>
     <strong>Name:</strong>
     <%= @company.name %>
@@ -29,6 +39,7 @@
     <strong>Location:</strong>
     <%= @company.location %>
   </li>
+
 
 </ul>
 

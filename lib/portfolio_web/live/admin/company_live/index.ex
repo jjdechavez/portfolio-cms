@@ -4,14 +4,15 @@ defmodule PortfolioWeb.Admin.CompanyLive.Index do
   alias Portfolio.Companies
   alias Portfolio.Companies.Company
 
-  import PortfolioWeb.LiveHelpers
+  on_mount({PortfolioWeb.LiveHelpers, :current_user})
 
   @impl true
-  def mount(_params, session, socket) do
+  def mount(_params, _session, socket) do
+    user = socket.assigns.current_user
+
     socket =
       socket
-      |> assign(:companies, list_companies())
-      |> assign_current_user(session)
+      |> assign(:companies, list_companies(user))
 
     {:ok, socket}
   end
@@ -41,13 +42,14 @@ defmodule PortfolioWeb.Admin.CompanyLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
+    user = socket.assigns.current_user
     company = Companies.get_company!(id)
     {:ok, _} = Companies.delete_company(company)
 
-    {:noreply, assign(socket, :companies, list_companies())}
+    {:noreply, assign(socket, :companies, list_companies(user))}
   end
 
-  defp list_companies do
-    Companies.list_companies()
+  defp list_companies(user) do
+    Companies.list_companies_by_user_id(user.id)
   end
 end

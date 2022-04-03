@@ -6,6 +6,14 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
+
+    <fieldset>
+      <label>
+        Active
+        <%= checkbox f, :active, [role: "switch"] %>
+      </label>
+    </fieldset>
+    <%= error_tag f, :active %>
   
     <%= label f, :name %>
     <%= text_input f, :name %>

@@ -17,6 +17,21 @@ defmodule Portfolio.Companies do
       [%Company{}, ...]
 
   """
+  def list_companies_by_user_id(id) do
+    Company
+    |> Ecto.Query.where(user_id: ^id)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of companies.
+
+  ## Examples
+
+      iex> list_companies()
+      [%Company{}, ...]
+
+  """
   def list_companies do
     Repo.all(Company)
   end

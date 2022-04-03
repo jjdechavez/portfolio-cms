@@ -6,6 +6,7 @@ defmodule Portfolio.Repo.Migrations.CreateCompanies do
       add(:name, :string)
       add(:url_link, :string)
       add(:location, :string)
+      add(:active, :boolean)
       add(:user_id, references(:users, on_delete: :nothing))
 
       timestamps()

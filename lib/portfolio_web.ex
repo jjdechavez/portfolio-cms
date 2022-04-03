@@ -47,6 +47,9 @@ defmodule PortfolioWeb do
       use Phoenix.LiveView,
         layout: {PortfolioWeb.LayoutView, "live.html"}
 
+      # If you want to assign the current user on mount
+      # import PortfolioWeb.LiveHelpers
+
       unquote(view_helpers())
     end
   end
@@ -83,6 +86,7 @@ defmodule PortfolioWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
+      import PortfolioWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View

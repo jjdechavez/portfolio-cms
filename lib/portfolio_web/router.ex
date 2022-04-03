@@ -89,6 +89,13 @@ defmodule PortfolioWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    live "/companies", CompanyLive.Index, :index
+    live "/companies/new", CompanyLive.Index, :new
+    live "/companies/:id/edit", CompanyLive.Index, :edit
+
+    live "/companies/:id", CompanyLive.Show, :show
+    live "/companies/:id/show/edit", CompanyLive.Show, :edit
   end
 
   scope "/admin", PortfolioWeb.Admin, as: :admin do

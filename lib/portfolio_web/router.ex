@@ -93,6 +93,7 @@ defmodule PortfolioWeb.Router do
     live "/companies", CompanyLive.Index, :index
     live "/companies/new", CompanyLive.Index, :new
     live "/companies/:id/edit", CompanyLive.Index, :edit
+    live "/companies/:id/delete", CompanyLive.Index, :delete
 
     live "/companies/:id", CompanyLive.Show, :show
     live "/companies/:id/show/edit", CompanyLive.Show, :edit

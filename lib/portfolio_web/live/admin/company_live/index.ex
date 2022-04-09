@@ -34,6 +34,13 @@ defmodule PortfolioWeb.Admin.CompanyLive.Index do
     |> assign(:company, %Company{})
   end
 
+  defp apply_action(socket, :delete, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Delete Company")
+    |> assign(:company, Companies.get_company!(id))
+    |> assign(:return_to, Routes.admin_company_index_path(socket, :index))
+  end
+
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Companies")
@@ -46,7 +53,11 @@ defmodule PortfolioWeb.Admin.CompanyLive.Index do
     company = Companies.get_company!(id)
     {:ok, _} = Companies.delete_company(company)
 
-    {:noreply, assign(socket, :companies, list_companies(user))}
+    {:noreply,
+     socket
+     |> assign(:companies, list_companies(user))
+     |> put_flash(:info, "Company deleted successfully!")
+     |> push_redirect(to: socket.assigns.return_to)}
   end
 
   defp list_companies(user) do

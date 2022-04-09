@@ -64,7 +64,6 @@ defmodule PortfolioWeb.LiveHelpers do
             <% end %>
             <%= @title %>
           </header>
-
           <%= render_slot(@inner_block) %>
         </article>
       </div>

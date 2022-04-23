@@ -29,20 +29,25 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   - github_link: string
 - Project module
 - Company module
+  - name: string
+  - url_link: string
+  - location: string
+  - active: boolean
+  - user_id: references users
 - Expercience module
 - Tools module: tools that used on development. (Check the newset version and update the local tools by creating bash script/elixir)
   - name: string
-  - status: boolean
+  - active: boolean
   - link_url: string
   - version: string
   - user_id: references users
 - Resources module: Web tips
   - name: string
-  - status: boolean
+  - active: boolean
   - link_url: string
   - tags: string[]
   - user_id: references users
 - Tag module
   - name: string
-  - status: boolean
+  - active: boolean
   - user_id: references users

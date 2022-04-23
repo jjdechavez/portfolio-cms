@@ -20,6 +20,13 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ## Features
 
+- User module
+  - email: citext
+  - first_name: string
+  - last_name: string
+  - middle_name: string
+  - portfolio_link: string
+  - github_link: string
 - Project module
 - Company module
 - Expercience module

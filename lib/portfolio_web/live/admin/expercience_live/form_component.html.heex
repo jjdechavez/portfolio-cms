@@ -31,9 +31,11 @@
     <%= date_input f, :start_date %>
     <%= error_tag f, :start_date %>
   
-    <%= label f, :end_date %>
-    <%= date_input f, :end_date %>
-    <%= error_tag f, :end_date %>
+    <%= if !@is_current_work do %>
+      <%= label f, :end_date %>
+      <%= date_input f, :end_date %>
+      <%= error_tag f, :end_date %>
+    <% end %>
   
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>

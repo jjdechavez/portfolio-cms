@@ -10,7 +10,8 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:changeset, changeset)}
+     |> assign(:changeset, changeset)
+     |> assign(:is_current_work, expercience.current_work)}
   end
 
   @impl true
@@ -20,7 +21,13 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.FormComponent do
       |> Experciences.change_expercience(expercience_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    is_current_work = if expercience_params["current_work"] === "true", do: true, else: false
+
+    {:noreply,
+     assign(socket,
+       changeset: changeset,
+       is_current_work: is_current_work
+     )}
   end
 
   def handle_event("save", %{"expercience" => expercience_params}, socket) do

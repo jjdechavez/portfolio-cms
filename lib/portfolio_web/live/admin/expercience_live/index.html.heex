@@ -37,7 +37,13 @@
             <%= expercience.end_date %>
           <% end %>
         </td>
-        <td><%= expercience.active %></td>
+        <td>
+          <%= if expercience.active do %>
+            Active
+          <% else %>
+            Inactive
+          <% end %>
+        </td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.admin_expercience_show_path(@socket, :show, expercience) %></span>

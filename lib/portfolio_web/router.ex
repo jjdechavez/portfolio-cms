@@ -94,9 +94,14 @@ defmodule PortfolioWeb.Router do
     live "/companies/new", CompanyLive.Index, :new
     live "/companies/:id/edit", CompanyLive.Index, :edit
     live "/companies/:id/delete", CompanyLive.Index, :delete
-
     live "/companies/:id", CompanyLive.Show, :show
     live "/companies/:id/show/edit", CompanyLive.Show, :edit
+
+    live "/experciences", ExpercienceLive.Index, :index
+    live "/experciences/new", ExpercienceLive.Index, :new
+    live "/experciences/:id/edit", ExpercienceLive.Index, :edit
+    live "/experciences/:id", ExpercienceLive.Show, :show
+    live "/experciences/:id/show/edit", ExpercienceLive.Show, :edit
   end
 
   scope "/admin", PortfolioWeb.Admin, as: :admin do

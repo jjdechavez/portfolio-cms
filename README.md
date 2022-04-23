@@ -35,6 +35,12 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   - active: boolean
   - user_id: references users
 - Expercience module
+  - name: string
+  - start_date: date
+  - end_date: date
+  - current_work: boolean
+  - company_id: references company
+  - user_id: references users
 - Tools module: tools that used on development. (Check the newset version and update the local tools by creating bash script/elixir)
   - name: string
   - active: boolean

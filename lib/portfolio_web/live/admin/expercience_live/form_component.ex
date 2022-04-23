@@ -51,6 +51,9 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.FormComponent do
   end
 
   defp save_expercience(socket, :new, expercience_params) do
+    current_user = socket.assigns.current_user
+    expercience_params = Map.put(expercience_params, "user_id", current_user.id)
+
     case Experciences.create_expercience(expercience_params) do
       {:ok, _expercience} ->
         {:noreply,

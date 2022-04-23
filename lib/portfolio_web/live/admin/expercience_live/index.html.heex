@@ -20,7 +20,6 @@
       <th>Name</th>
       <th>Start date</th>
       <th>End date</th>
-      <th>Current work</th>
       <th>Active</th>
 
       <th></th>
@@ -31,8 +30,13 @@
       <tr id={"expercience-#{expercience.id}"}>
         <td><%= expercience.name %></td>
         <td><%= expercience.start_date %></td>
-        <td><%= expercience.end_date %></td>
-        <td><%= expercience.current_work %></td>
+        <td>
+          <%= if expercience.current_work do %>
+            Current
+          <% else %>
+            <%= expercience.end_date %>
+          <% end %>
+        </td>
         <td><%= expercience.active %></td>
 
         <td>

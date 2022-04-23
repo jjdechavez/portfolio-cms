@@ -4,6 +4,8 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Index do
   alias Portfolio.Experciences
   alias Portfolio.Experciences.Expercience
 
+  on_mount({PortfolioWeb.LiveHelpers, :current_user})
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :experciences, list_experciences())}

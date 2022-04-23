@@ -1,0 +1,47 @@
+<h1>Listing Experciences</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.admin_expercience_index_path(@socket, :index)} title={@page_title}>
+    <.live_component
+      module={PortfolioWeb.Admin.ExpercienceLive.FormComponent}
+      id={@expercience.id || :new}
+      title={@page_title}
+      action={@live_action}
+      expercience={@expercience}
+      return_to={Routes.admin_expercience_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Current work</th>
+      <th>Active</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="experciences">
+    <%= for expercience <- @experciences do %>
+      <tr id={"expercience-#{expercience.id}"}>
+        <td><%= expercience.name %></td>
+        <td><%= expercience.start_date %></td>
+        <td><%= expercience.end_date %></td>
+        <td><%= expercience.current_work %></td>
+        <td><%= expercience.active %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.admin_expercience_show_path(@socket, :show, expercience) %></span>
+          <span><%= live_patch "Edit", to: Routes.admin_expercience_index_path(@socket, :edit, expercience) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: expercience.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Expercience", to: Routes.admin_expercience_index_path(@socket, :new) %></span>

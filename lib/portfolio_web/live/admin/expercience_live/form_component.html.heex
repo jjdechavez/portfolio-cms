@@ -1,0 +1,42 @@
+<div>
+  <.form
+    let={f}
+    for={@changeset}
+    id="expercience-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+
+    <fieldset>
+      <label>
+        Active
+        <%= checkbox f, :active, [role: "switch"] %>
+      </label>
+    </fieldset>
+    <%= error_tag f, :active %>
+  
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+
+    <fieldset>
+      <label>
+        Current Work
+        <%= checkbox f, :current_work %>
+      </label>
+    </fieldset>
+    <%= error_tag f, :current_work %>
+  
+    <%= label f, :start_date %>
+    <%= date_input f, :start_date %>
+    <%= error_tag f, :start_date %>
+  
+    <%= label f, :end_date %>
+    <%= date_input f, :end_date %>
+    <%= error_tag f, :end_date %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>

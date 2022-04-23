@@ -1,0 +1,46 @@
+<h1>Show Expercience</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.admin_expercience_show_path(@socket, :show, @expercience)}>
+    <.live_component
+      module={PortfolioWeb.Admin.ExpercienceLive.FormComponent}
+      id={@expercience.id}
+      title={@page_title}
+      action={@live_action}
+      expercience={@expercience}
+      return_to={Routes.admin_expercience_show_path(@socket, :show, @expercience)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @expercience.name %>
+  </li>
+
+  <li>
+    <strong>Start date:</strong>
+    <%= @expercience.start_date %>
+  </li>
+
+  <li>
+    <strong>End date:</strong>
+    <%= @expercience.end_date %>
+  </li>
+
+  <li>
+    <strong>Current work:</strong>
+    <%= @expercience.current_work %>
+  </li>
+
+  <li>
+    <strong>Active:</strong>
+    <%= @expercience.active %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.admin_expercience_show_path(@socket, :edit, @expercience), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.admin_expercience_index_path(@socket, :index) %></span>

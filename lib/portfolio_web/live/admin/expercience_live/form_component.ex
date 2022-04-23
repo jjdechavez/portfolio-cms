@@ -2,16 +2,19 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.FormComponent do
   use PortfolioWeb, :live_component
 
   alias Portfolio.Experciences
+  alias Portfolio.Companies
 
   @impl true
   def update(%{expercience: expercience} = assigns, socket) do
+    user = assigns.current_user
     changeset = Experciences.change_expercience(expercience)
 
     {:ok,
      socket
      |> assign(assigns)
      |> assign(:changeset, changeset)
-     |> assign(:is_current_work, expercience.current_work)}
+     |> assign(:is_current_work, expercience.current_work)
+     |> assign(:company_opts, company_opts(user))}
   end
 
   @impl true
@@ -58,5 +61,13 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  defp company_opts(user) do
+    for company <- list_companies(user), do: [key: company.name, value: company.id]
+  end
+
+  defp list_companies(user) do
+    Companies.list_companies_by_user_id(user.id)
   end
 end

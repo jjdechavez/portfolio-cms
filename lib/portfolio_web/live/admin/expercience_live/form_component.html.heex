@@ -19,6 +19,10 @@
     <%= text_input f, :name %>
     <%= error_tag f, :name %>
 
+    <%= label f, :company_id %>
+    <%= select f, :company_id, @company_opts %>
+    <%= error_tag f, :company_id %>
+
     <fieldset>
       <label>
         Current Work

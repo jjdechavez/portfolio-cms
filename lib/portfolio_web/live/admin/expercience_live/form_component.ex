@@ -14,7 +14,7 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.FormComponent do
      |> assign(assigns)
      |> assign(:changeset, changeset)
      |> assign(:is_current_work, expercience.current_work)
-     |> assign(:company_opts, company_opts(user))}
+     |> assign(:company_opts, company_opts(user, expercience))}
   end
 
   @impl true
@@ -63,8 +63,13 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.FormComponent do
     end
   end
 
-  defp company_opts(user) do
-    for company <- list_companies(user), do: [key: company.name, value: company.id]
+  defp company_opts(user, expercience) do
+    for company <- list_companies(user),
+        do: [
+          key: company.name,
+          value: company.id,
+          selected: company.id == expercience.company_id
+        ]
   end
 
   defp list_companies(user) do

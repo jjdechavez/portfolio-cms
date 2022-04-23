@@ -20,7 +20,7 @@
     <%= error_tag f, :name %>
 
     <%= label f, :company_id %>
-    <%= select f, :company_id, @company_opts %>
+    <%= select f, :company_id, @company_opts, prompt: [key: "Choose your company", disabled: true] %>
     <%= error_tag f, :company_id %>
 
     <fieldset>

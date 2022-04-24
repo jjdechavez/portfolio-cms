@@ -8,7 +8,8 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :experciences, list_experciences())}
+    user = socket.assigns.current_user
+    {:ok, assign(socket, :experciences, list_experciences(user))}
   end
 
   @impl true
@@ -36,13 +37,14 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
+    current_user = socket.assigns.current_user
     expercience = Experciences.get_expercience!(id)
     {:ok, _} = Experciences.delete_expercience(expercience)
 
-    {:noreply, assign(socket, :experciences, list_experciences())}
+    {:noreply, assign(socket, :experciences, list_experciences(current_user))}
   end
 
-  defp list_experciences do
-    Experciences.list_experciences()
+  defp list_experciences(user) do
+    Experciences.list_experciences_by_user_id(user.id)
   end
 end

@@ -67,7 +67,9 @@ defmodule PortfolioWeb.LiveHelpers do
             <% end %>
             <%= @title %>
           </header>
+
           <%= render_slot(@inner_block) %>
+
           <%= for footer <- @footer do %>
             <footer style={"#{footer.style}"}>
               <%= render_slot(@footer) %>

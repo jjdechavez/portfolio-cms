@@ -14,6 +14,16 @@
   </.modal>
 <% end %>
 
+<%= if @live_action in [:delete] do %>
+  <.modal return_to={Routes.admin_expercience_index_path(@socket, :index)} title={@page_title}>
+    <p>Are you sure to delete this expercience?</p>
+    <:footer style="text-align: right;">
+      <%= live_patch "Cancel", to: Routes.admin_expercience_index_path(@socket, :index), role: "button", class: "secondary" %>
+      <%= link "Confirm", to: "#", phx_click: "delete", phx_value_id: @expercience.id, phx_disable_with: "Deleting...", role: "button"  %>
+    </:footer>
+  </.modal>
+<% end %>
+
 <table role="grid">
   <thead>
     <tr>
@@ -48,7 +58,7 @@
         <td>
           <span><%= live_redirect "Show", to: Routes.admin_expercience_show_path(@socket, :show, expercience) %></span>
           <span><%= live_patch "Edit", to: Routes.admin_expercience_index_path(@socket, :edit, expercience) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: expercience.id, data: [confirm: "Are you sure?"] %></span>
+          <span><%= live_patch "Delete", to: Routes.admin_expercience_index_path(@socket, :delete, expercience) %></span>
         </td>
       </tr>
     <% end %>

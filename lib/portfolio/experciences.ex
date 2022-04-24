@@ -21,6 +21,12 @@ defmodule Portfolio.Experciences do
     Repo.all(Expercience)
   end
 
+  def list_experciences_by_user_id(id) do
+    Expercience
+    |> Ecto.Query.where(user_id: ^id)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single expercience.
 

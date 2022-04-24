@@ -39,7 +39,10 @@ defmodule PortfolioWeb.LiveHelpers do
       </.modal>
   """
   def modal(assigns) do
-    assigns = assign_new(assigns, :return_to, fn -> nil end)
+    assigns =
+      assigns
+      |> assign_new(:return_to, fn -> nil end)
+      |> assign_new(:footer, fn -> [] end)
 
     ~H"""
     <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
@@ -50,7 +53,7 @@ defmodule PortfolioWeb.LiveHelpers do
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
       >
-        <article>
+        <article style="margin-top: 0;">
           <header>
             <%= if @return_to do %>
               <%= live_patch "✖",
@@ -65,6 +68,11 @@ defmodule PortfolioWeb.LiveHelpers do
             <%= @title %>
           </header>
           <%= render_slot(@inner_block) %>
+          <%= for footer <- @footer do %>
+            <footer style={"#{footer.style}"}>
+              <%= render_slot(@footer) %>
+            </footer>
+          <% end %>
         </article>
       </div>
     </div>

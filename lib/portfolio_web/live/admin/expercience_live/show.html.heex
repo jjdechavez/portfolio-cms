@@ -27,17 +27,20 @@
 
   <li>
     <strong>End date:</strong>
-    <%= @expercience.end_date %>
-  </li>
-
-  <li>
-    <strong>Current work:</strong>
-    <%= @expercience.current_work %>
+    <%= if @expercience.current_work do %>
+      Current
+    <% else %>
+      <%= @expercience.end_date %>
+    <% end %>
   </li>
 
   <li>
     <strong>Active:</strong>
-    <%= @expercience.active %>
+    <%= if @expercience.active do %>
+      Active
+    <% else %>
+      Inactive
+    <% end %>
   </li>
 
 </ul>

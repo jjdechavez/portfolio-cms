@@ -1,13 +1,14 @@
 <h1>Show Expercience</h1>
 
 <%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.admin_expercience_show_path(@socket, :show, @expercience)}>
+  <.modal return_to={Routes.admin_expercience_show_path(@socket, :show, @expercience)} title={@page_title}>
     <.live_component
       module={PortfolioWeb.Admin.ExpercienceLive.FormComponent}
       id={@expercience.id}
       title={@page_title}
       action={@live_action}
       expercience={@expercience}
+      current_user={@current_user}
       return_to={Routes.admin_expercience_show_path(@socket, :show, @expercience)}
     />
   </.modal>

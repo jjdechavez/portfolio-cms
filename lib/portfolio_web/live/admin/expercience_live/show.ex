@@ -3,6 +3,8 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Show do
 
   alias Portfolio.Experciences
 
+  on_mount({PortfolioWeb.LiveHelpers, :current_user})
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, socket}

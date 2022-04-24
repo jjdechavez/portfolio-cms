@@ -18,7 +18,7 @@ defmodule Portfolio.Experciences.Expercience do
   def changeset(expercience, attrs) do
     expercience
     |> cast(attrs, [:name, :start_date, :end_date, :current_work, :active])
-    |> validate_required([:name, :start_date, :end_date, :current_work, :active])
+    |> validate_required([:name, :start_date, :current_work, :active])
   end
 
   def create_changeset(expercience, attrs) do

@@ -17,6 +17,15 @@
 <ul>
 
   <li>
+    <strong>Active:</strong>
+    <%= if @expercience.active do %>
+      Active
+    <% else %>
+      Inactive
+    <% end %>
+  </li>
+
+  <li>
     <strong>Name:</strong>
     <%= @expercience.name %>
   </li>
@@ -32,15 +41,6 @@
       Current
     <% else %>
       <%= @expercience.end_date %>
-    <% end %>
-  </li>
-
-  <li>
-    <strong>Active:</strong>
-    <%= if @expercience.active do %>
-      Active
-    <% else %>
-      Inactive
     <% end %>
   </li>
 

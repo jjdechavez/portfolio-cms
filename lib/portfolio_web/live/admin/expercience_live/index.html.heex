@@ -16,11 +16,14 @@
 
 <%= if @live_action in [:delete] do %>
   <.modal return_to={Routes.admin_expercience_index_path(@socket, :index)} title={@page_title}>
-    <p>Are you sure to delete this expercience?</p>
-    <:footer style="text-align: right;">
-      <%= live_patch "Cancel", to: Routes.admin_expercience_index_path(@socket, :index), role: "button", class: "secondary" %>
-      <%= link "Confirm", to: "#", phx_click: "delete", phx_value_id: @expercience.id, phx_disable_with: "Deleting...", role: "button"  %>
-    </:footer>
+    <.form let={f} for={@changeset} id="expercience-delete" phx-submit="delete">
+      <p>Are you sure to delete this expercience?</p>
+      <%= hidden_input f, :id, value: @expercience_id %>
+      <footer style="text-align: right;">
+        <%= live_patch "Cancel", to: Routes.admin_expercience_index_path(@socket, :index), role: "button", class: "secondary" %>
+        <%= submit "Confirm",  phx_disable_with: "Deleting...", role: "button" %>
+      </footer>
+    </.form>
   </.modal>
 <% end %>
 

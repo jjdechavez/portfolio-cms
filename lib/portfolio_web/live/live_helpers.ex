@@ -38,6 +38,7 @@ defmodule PortfolioWeb.LiveHelpers do
         />
       </.modal>
   """
+
   def modal(assigns) do
     assigns =
       assigns
@@ -45,39 +46,37 @@ defmodule PortfolioWeb.LiveHelpers do
       |> assign_new(:footer, fn -> [] end)
 
     ~H"""
-    <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
-      <div
+    <dialog 
+      id="modal" 
+      class="phx-modal fade-in" 
+      phx-remove={hide_modal()} 
+      open={if @title, do: 'true'}
+    >
+      <article
         id="modal-content"
         class="phx-modal-content fade-in-scale"
         phx-click-away={JS.dispatch("click", to: "#close")}
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
+        style="width: 30vw;"
       >
-        <article style="margin-top: 0;">
-          <header>
-            <%= if @return_to do %>
-              <%= live_patch "✖",
-                to: @return_to,
-                id: "close",
-                class: "phx-modal-close",
-                phx_click: hide_modal()
-              %>
-            <% else %>
-             <a id="close" href="#" class="phx-modal-close close" phx-click={hide_modal()}>✖</a>
-            <% end %>
-            <%= @title %>
-          </header>
+         <%= live_patch "",
+           to: @return_to,
+           id: "close",
+           class: "close",
+           phx_click: hide_modal()
+         %>
+        <h3><%= @title %></h3>
 
-          <%= render_slot(@inner_block) %>
+        <%= render_slot(@inner_block) %>
 
-          <%= for footer <- @footer do %>
-            <footer style={"#{footer.style}"}>
-              <%= render_slot(@footer) %>
-            </footer>
-          <% end %>
-        </article>
-      </div>
-    </div>
+        <%= for footer <- @footer do %>
+          <footer style={"#{footer.style}"}>
+            <%= render_slot(@footer) %>
+          </footer>
+        <% end %>
+      </article>
+    </dialog>
     """
   end
 

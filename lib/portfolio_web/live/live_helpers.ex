@@ -70,11 +70,9 @@ defmodule PortfolioWeb.LiveHelpers do
 
         <%= render_slot(@inner_block) %>
 
-        <%= for footer <- @footer do %>
-          <footer style={"#{footer.style}"}>
-            <%= render_slot(@footer) %>
-          </footer>
-        <% end %>
+        <footer>
+          <%= render_slot(@footer) %>
+        </footer>
       </article>
     </dialog>
     """

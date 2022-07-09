@@ -43,7 +43,8 @@ defmodule PortfolioWeb.LiveHelpers do
     assigns =
       assigns
       |> assign_new(:return_to, fn -> nil end)
-      |> assign_new(:footer, fn -> [] end)
+      |> assign_new(:confirm, fn -> [] end)
+      |> assign_new(:cancel, fn -> [] end)
 
     ~H"""
     <dialog 
@@ -54,7 +55,7 @@ defmodule PortfolioWeb.LiveHelpers do
     >
       <article
         id="modal-content"
-        class="phx-modal-content fade-in-scale"
+        class="fade-in-scale"
         phx-click-away={JS.dispatch("click", to: "#close")}
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
@@ -63,16 +64,23 @@ defmodule PortfolioWeb.LiveHelpers do
          <%= live_patch "",
            to: @return_to,
            id: "close",
-           class: "close",
+           class: "close modal-close",
            phx_click: hide_modal()
          %>
         <h3><%= @title %></h3>
 
         <%= render_slot(@inner_block) %>
 
-        <footer>
-          <%= render_slot(@footer) %>
-        </footer>
+         <footer>
+          <%= for cancel <- @cancel do %>
+           <%= live_patch cancel.title, to: @return_to, role: "button", class: "secondary modal-close" %>
+          <% end %>
+          <%= for confirm <- @confirm do %>
+           <a id="modal-confirm" href="#" role="button" phx-click={confirm_event_modal(confirm.event)} phx-value-id={"#{confirm.value}"} phx-disable-with={"#{confirm.disable_title}"}>
+             <%= render_slot(@confirm) %>
+           </a>
+          <% end %>
+         </footer>
       </article>
     </dialog>
     """
@@ -82,5 +90,13 @@ defmodule PortfolioWeb.LiveHelpers do
     js
     |> JS.hide(to: "#modal", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
+  end
+
+  defp confirm_event_modal(js \\ %JS{}, event) do
+    js
+    |> JS.push(event, loading: ".modal-close")
+    |> JS.set_attribute({"aria-busy", "true"}, to: "#modal-confirm")
+    |> JS.remove_attribute("phx-click-away", to: "#modal-content")
+    |> JS.remove_attribute("phx-window-keydown", to: "#modal-content")
   end
 end

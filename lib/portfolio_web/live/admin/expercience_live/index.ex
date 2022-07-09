@@ -30,12 +30,10 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Index do
   end
 
   defp apply_action(socket, :delete, %{"id" => id}) do
-    changeset = Experciences.change_expercience(%Expercience{})
-
     socket
     |> assign(:page_title, "Delete Expercience")
     |> assign(:expercience_id, id)
-    |> assign(:changeset, changeset)
+    |> assign(:expercience, Experciences.get_expercience!(id))
     |> assign(:return_to, Routes.admin_expercience_index_path(socket, :index))
   end
 
@@ -46,9 +44,9 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"expercience" => expercience_params}, socket) do
+  def handle_event("delete", %{"id" => expercience_id}, socket) do
     user = socket.assigns.current_user
-    id = String.to_integer(expercience_params["id"])
+    id = String.to_integer(expercience_id)
 
     expercience = Experciences.get_expercience!(id)
     {:ok, _} = Experciences.delete_expercience(expercience)

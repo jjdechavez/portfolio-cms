@@ -21,7 +21,13 @@ defmodule Portfolio.ExperciencesTest do
     end
 
     test "create_expercience/1 with valid data creates a expercience" do
-      valid_attrs = %{active: true, current_work: true, end_date: ~D[2022-04-22], name: "some name", start_date: ~D[2022-04-22]}
+      valid_attrs = %{
+        active: true,
+        current_work: true,
+        end_date: ~D[2022-04-22],
+        name: "some name",
+        start_date: ~D[2022-04-22]
+      }
 
       assert {:ok, %Expercience{} = expercience} = Experciences.create_expercience(valid_attrs)
       assert expercience.active == true
@@ -37,9 +43,18 @@ defmodule Portfolio.ExperciencesTest do
 
     test "update_expercience/2 with valid data updates the expercience" do
       expercience = expercience_fixture()
-      update_attrs = %{active: false, current_work: false, end_date: ~D[2022-04-23], name: "some updated name", start_date: ~D[2022-04-23]}
 
-      assert {:ok, %Expercience{} = expercience} = Experciences.update_expercience(expercience, update_attrs)
+      update_attrs = %{
+        active: false,
+        current_work: false,
+        end_date: ~D[2022-04-23],
+        name: "some updated name",
+        start_date: ~D[2022-04-23]
+      }
+
+      assert {:ok, %Expercience{} = expercience} =
+               Experciences.update_expercience(expercience, update_attrs)
+
       assert expercience.active == false
       assert expercience.current_work == false
       assert expercience.end_date == ~D[2022-04-23]
@@ -49,7 +64,10 @@ defmodule Portfolio.ExperciencesTest do
 
     test "update_expercience/2 with invalid data returns error changeset" do
       expercience = expercience_fixture()
-      assert {:error, %Ecto.Changeset{}} = Experciences.update_expercience(expercience, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Experciences.update_expercience(expercience, @invalid_attrs)
+
       assert expercience == Experciences.get_expercience!(expercience.id)
     end
 

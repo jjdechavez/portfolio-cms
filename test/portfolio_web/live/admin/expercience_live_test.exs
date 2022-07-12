@@ -4,9 +4,27 @@ defmodule PortfolioWeb.Admin.ExpercienceLiveTest do
   import Phoenix.LiveViewTest
   import Portfolio.ExperciencesFixtures
 
-  @create_attrs %{active: true, current_work: true, end_date: %{day: 22, month: 4, year: 2022}, name: "some name", start_date: %{day: 22, month: 4, year: 2022}}
-  @update_attrs %{active: false, current_work: false, end_date: %{day: 23, month: 4, year: 2022}, name: "some updated name", start_date: %{day: 23, month: 4, year: 2022}}
-  @invalid_attrs %{active: false, current_work: false, end_date: %{day: 30, month: 2, year: 2022}, name: nil, start_date: %{day: 30, month: 2, year: 2022}}
+  @create_attrs %{
+    active: true,
+    current_work: true,
+    end_date: %{day: 22, month: 4, year: 2022},
+    name: "some name",
+    start_date: %{day: 22, month: 4, year: 2022}
+  }
+  @update_attrs %{
+    active: false,
+    current_work: false,
+    end_date: %{day: 23, month: 4, year: 2022},
+    name: "some updated name",
+    start_date: %{day: 23, month: 4, year: 2022}
+  }
+  @invalid_attrs %{
+    active: false,
+    current_work: false,
+    end_date: %{day: 30, month: 2, year: 2022},
+    name: nil,
+    start_date: %{day: 30, month: 2, year: 2022}
+  }
 
   defp create_expercience(_) do
     expercience = expercience_fixture()
@@ -79,14 +97,16 @@ defmodule PortfolioWeb.Admin.ExpercienceLiveTest do
     setup [:create_expercience]
 
     test "displays expercience", %{conn: conn, expercience: expercience} do
-      {:ok, _show_live, html} = live(conn, Routes.admin_expercience_show_path(conn, :show, expercience))
+      {:ok, _show_live, html} =
+        live(conn, Routes.admin_expercience_show_path(conn, :show, expercience))
 
       assert html =~ "Show Expercience"
       assert html =~ expercience.name
     end
 
     test "updates expercience within modal", %{conn: conn, expercience: expercience} do
-      {:ok, show_live, _html} = live(conn, Routes.admin_expercience_show_path(conn, :show, expercience))
+      {:ok, show_live, _html} =
+        live(conn, Routes.admin_expercience_show_path(conn, :show, expercience))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
                "Edit Expercience"

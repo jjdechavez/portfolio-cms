@@ -35,7 +35,12 @@ defmodule Portfolio.CompaniesTest do
 
     test "update_company/2 with valid data updates the company" do
       company = company_fixture()
-      update_attrs = %{location: "some updated location", name: "some updated name", url_link: "some updated url_link"}
+
+      update_attrs = %{
+        location: "some updated location",
+        name: "some updated name",
+        url_link: "some updated url_link"
+      }
 
       assert {:ok, %Company{} = company} = Companies.update_company(company, update_attrs)
       assert company.location == "some updated location"

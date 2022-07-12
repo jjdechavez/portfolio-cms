@@ -5,7 +5,11 @@ defmodule PortfolioWeb.Admin.CompanyLiveTest do
   import Portfolio.CompaniesFixtures
 
   @create_attrs %{location: "some location", name: "some name", url_link: "some url_link"}
-  @update_attrs %{location: "some updated location", name: "some updated name", url_link: "some updated url_link"}
+  @update_attrs %{
+    location: "some updated location",
+    name: "some updated name",
+    url_link: "some updated url_link"
+  }
   @invalid_attrs %{location: nil, name: nil, url_link: nil}
 
   defp create_company(_) do

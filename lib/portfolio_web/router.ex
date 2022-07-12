@@ -98,8 +98,8 @@ defmodule PortfolioWeb.Router do
     live "/companies/:id/show/edit", CompanyLive.Show, :edit
 
     live "/experciences", ExpercienceLive.Index, :index
-    live "/experciences/new", ExpercienceLive.Index, :new
-    live "/experciences/:id/edit", ExpercienceLive.Index, :edit
+    live "/experciences/new", ExpercienceLive.Form, :new
+    live "/experciences/:id/edit", ExpercienceLive.Form, :edit
     live "/experciences/:id/delete", ExpercienceLive.Index, :delete
     live "/experciences/:id", ExpercienceLive.Show, :show
     live "/experciences/:id/show/edit", ExpercienceLive.Show, :edit

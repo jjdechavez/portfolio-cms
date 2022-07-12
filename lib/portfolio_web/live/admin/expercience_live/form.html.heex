@@ -1,0 +1,42 @@
+<div>
+  <%= live_redirect "Back" , to: Routes.admin_expercience_index_path(@socket, :index) %>
+    <h3>
+      <%= @page_title %>
+    </h3>
+    <.form let={f} for={@changeset} id="expercience-form" phx-change="validate" phx-submit="save">
+      <fieldset>
+        <label>
+          Active <%= checkbox f, :active, [role: "switch" ] %>
+        </label>
+      </fieldset>
+      <%= error_tag f, :active %>
+
+        <%= label f, :name %>
+          <%= text_input f, :name %>
+            <%= error_tag f, :name %>
+
+              <%= label f, :company_id %>
+                <%= select f, :company_id, @company_opts, prompt: [key: "Choose your company" , disabled: true] %>
+                  <%= error_tag f, :company_id %>
+
+                    <fieldset>
+                      <label>
+                        Current Work
+                        <%= checkbox f, :current_work %>
+                      </label>
+                    </fieldset>
+                    <%= error_tag f, :current_work %>
+
+                      <%= label f, :start_date %>
+                        <%= date_input f, :start_date %>
+                          <%= error_tag f, :start_date %>
+
+                            <%= if !@is_current_work do %>
+                              <%= label f, :end_date %>
+                                <%= date_input f, :end_date %>
+                                  <%= error_tag f, :end_date %>
+                                    <% end %>
+
+                                      <%= submit "Save" , phx_disable_with: "Saving..." %>
+    </.form>
+</div>

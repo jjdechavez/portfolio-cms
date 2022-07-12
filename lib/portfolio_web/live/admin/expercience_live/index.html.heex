@@ -57,7 +57,7 @@
                     <%= live_redirect "Show" , to: Routes.admin_expercience_show_path(@socket, :show, expercience) %>
                   </span>
                   <span>
-                    <%= live_patch "Edit" , to: Routes.admin_expercience_index_path(@socket, :edit, expercience) %>
+                    <%= live_patch "Edit" , to: Routes.admin_expercience_form_path(@socket, :edit, expercience) %>
                   </span>
                   <span>
                     <%= live_patch "Delete" , to: Routes.admin_expercience_index_path(@socket, :delete, expercience) %>
@@ -69,5 +69,5 @@
         </table>
 
         <span>
-          <%= live_patch "New Expercience" , to: Routes.admin_expercience_index_path(@socket, :new) %>
+          <%= live_patch "New Expercience" , to: Routes.admin_expercience_form_path(@socket, :new) %>
         </span>

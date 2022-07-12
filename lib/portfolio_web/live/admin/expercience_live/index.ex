@@ -17,17 +17,17 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Expercience")
-    |> assign(:expercience, Experciences.get_expercience!(id))
-  end
-
-  defp apply_action(socket, :new, _params) do
-    socket
-    |> assign(:page_title, "New Expercience")
-    |> assign(:expercience, %Expercience{})
-  end
+  # defp apply_action(socket, :edit, %{"id" => id}) do
+  #   socket
+  #   |> assign(:page_title, "Edit Expercience")
+  #   |> assign(:expercience, Experciences.get_expercience!(id))
+  # end
+  #
+  # defp apply_action(socket, :new, _params) do
+  #   socket
+  #   |> assign(:page_title, "New Expercience")
+  #   |> assign(:expercience, %Expercience{})
+  # end
 
   defp apply_action(socket, :delete, %{"id" => id}) do
     socket

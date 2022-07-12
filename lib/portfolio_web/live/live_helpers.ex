@@ -71,6 +71,7 @@ defmodule PortfolioWeb.LiveHelpers do
 
         <%= render_slot(@inner_block) %>
 
+        <%= if length(@cancel) > 0 or length(@confirm) > 0 do %>
          <footer>
           <%= for cancel <- @cancel do %>
            <%= live_patch cancel.title, to: @return_to, role: "button", class: "secondary modal-close" %>
@@ -81,6 +82,7 @@ defmodule PortfolioWeb.LiveHelpers do
            </a>
           <% end %>
          </footer>
+        <% end %>
       </article>
     </dialog>
     """

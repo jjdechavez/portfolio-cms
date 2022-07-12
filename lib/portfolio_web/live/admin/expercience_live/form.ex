@@ -8,14 +8,18 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Form do
   on_mount({PortfolioWeb.LiveHelpers, :current_user})
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     user = socket.assigns.current_user
-    expercience = %Expercience{}
+
+    expercience =
+      if params["id"], do: Experciences.get_expercience!(params["id"]), else: %Expercience{}
+
     changeset = Experciences.change_expercience(expercience)
 
     {:ok,
      socket
      |> assign(:changeset, changeset)
+     |> assign(:expercience, expercience)
      |> assign(:is_current_work, expercience.current_work)
      |> assign(:company_opts, company_opts(user, expercience))}
   end
@@ -25,16 +29,12 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Form do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Expercience")
-    |> assign(:expercience, Experciences.get_expercience!(id))
+  defp apply_action(socket, :edit, _params) do
+    assign(socket, :page_title, "Edit Expercience")
   end
 
   defp apply_action(socket, :new, _params) do
-    socket
-    |> assign(:page_title, "New Expercience")
-    |> assign(:expercience, %Expercience{})
+    assign(socket, :page_title, "New Expercience")
   end
 
   @impl true
@@ -59,11 +59,13 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Form do
 
   defp save_expercience(socket, :edit, expercience_params) do
     case Experciences.update_expercience(socket.assigns.expercience, expercience_params) do
-      {:ok, _expercience} ->
+      {:ok, expercience} ->
         {:noreply,
          socket
          |> put_flash(:info, "Expercience updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_redirect(
+           to: Routes.admin_expercience_show_path(PortfolioWeb.Endpoint, :show, expercience)
+         )}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
@@ -79,7 +81,7 @@ defmodule PortfolioWeb.Admin.ExpercienceLive.Form do
         {:noreply,
          socket
          |> put_flash(:info, "Expercience created successfully")
-         |> redirect(
+         |> push_redirect(
            to: Routes.admin_expercience_show_path(PortfolioWeb.Endpoint, :show, expercience)
          )}
 

@@ -1,73 +1,64 @@
 <h1>Listing Experciences</h1>
-
-<%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.admin_expercience_index_path(@socket, :index)} title={@page_title}>
-    <.live_component module={PortfolioWeb.Admin.ExpercienceLive.FormComponent} id={@expercience.id || :new}
-      title={@page_title} action={@live_action} expercience={@expercience} current_user={@current_user}
-      return_to={Routes.admin_expercience_index_path(@socket, :index)} />
+<%= if @live_action in [:delete] do %>
+  <.modal return_to={Routes.admin_expercience_index_path(@socket, :index)} title={@page_title}
+    expercience={@expercience}>
+    <p>Are you sure to delete this expercience: <%= @expercience.name %>?</p>
+    <:cancel title="Cancel"></:cancel>
+    <:confirm event="delete" disable_title="Deleting..." value={@expercience.id}>Confirm</:confirm>
   </.modal>
-  <% end %>
+<% end %>
 
-    <%= if @live_action in [:delete] do %>
-      <.modal return_to={Routes.admin_expercience_index_path(@socket, :index)} title={@page_title}
-        expercience={@expercience}>
-        <p>Are you sure to delete this expercience: <%= @expercience.name %>?</p>
-        <:cancel title="Cancel"></:cancel>
-        <:confirm event="delete" disable_title="Deleting..." value={@expercience.id}>Confirm</:confirm>
-      </.modal>
-      <% end %>
+<table role="grid">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Active</th>
 
-        <table role="grid">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Start date</th>
-              <th>End date</th>
-              <th>Active</th>
-
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="experciences">
-            <%= for expercience <- @experciences do %>
-              <tr id={"expercience-#{expercience.id}"}>
-                <td>
-                  <%= expercience.name %>
-                </td>
-                <td>
-                  <%= expercience.start_date %>
-                </td>
-                <td>
-                  <%= if expercience.current_work do %>
-                    Current
-                    <% else %>
-                      <%= expercience.end_date %>
-                        <% end %>
-                </td>
-                <td>
-                  <%= if expercience.active do %>
-                    Active
-                    <% else %>
-                      Inactive
-                      <% end %>
-                </td>
-
-                <td>
-                  <span>
-                    <%= live_redirect "Show" , to: Routes.admin_expercience_show_path(@socket, :show, expercience) %>
-                  </span>
-                  <span>
-                    <%= live_patch "Edit" , to: Routes.admin_expercience_form_path(@socket, :edit, expercience) %>
-                  </span>
-                  <span>
-                    <%= live_patch "Delete" , to: Routes.admin_expercience_index_path(@socket, :delete, expercience) %>
-                  </span>
-                </td>
-              </tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="experciences">
+    <%= for expercience <- @experciences do %>
+      <tr id={"expercience-#{expercience.id}"}>
+        <td>
+          <%= expercience.name %>
+        </td>
+        <td>
+          <%= expercience.start_date %>
+        </td>
+        <td>
+          <%= if expercience.current_work do %>
+            Current
+            <% else %>
+              <%= expercience.end_date %>
+                <% end %>
+        </td>
+        <td>
+          <%= if expercience.active do %>
+            Active
+            <% else %>
+              Inactive
               <% end %>
-          </tbody>
-        </table>
+        </td>
 
-        <span>
-          <%= live_patch "New Expercience" , to: Routes.admin_expercience_form_path(@socket, :new) %>
-        </span>
+        <td>
+          <span>
+            <%= live_redirect "Show" , to: Routes.admin_expercience_show_path(@socket, :show, expercience) %>
+          </span>
+          <span>
+            <%= live_patch "Edit" , to: Routes.admin_expercience_form_path(@socket, :edit, expercience) %>
+          </span>
+          <span>
+            <%= live_patch "Delete" , to: Routes.admin_expercience_index_path(@socket, :delete, expercience) %>
+          </span>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<span>
+  <%= live_patch "New Expercience" , to: Routes.admin_expercience_form_path(@socket, :new) %>
+</span>
